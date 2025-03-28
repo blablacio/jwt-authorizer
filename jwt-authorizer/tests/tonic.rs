@@ -102,8 +102,11 @@ async fn make_protected_request<S>(
     message: &str,
 ) -> Result<tonic::Response<HelloMessage>, Status>
 where
-    S: Service<http::Request<tonic::body::Body>, Response = http::Response<tonic::body::Body>, Error = tower::BoxError>
-        + Send
+    S: Service<
+            http::Request<tonic::body::Body>,
+            Response = http::Response<tonic::body::Body>,
+            Error = std::convert::Infallible,
+        > + Send
         + Clone
         + 'static,
     S::Future: Send,
